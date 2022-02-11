@@ -1,6 +1,6 @@
 using TracyWidomBeta
 using Test
-
+derivative_of_my_f(2,1)
 @testset "TracyWidomBeta.jl" begin
     # 2x+3y
     @test my_f(2,1)==7
