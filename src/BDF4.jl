@@ -90,7 +90,7 @@ function BDF4(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0.0005,
         final_interest[k]= one_step!(finals,delta_x,time[k],A,B,integ)
     end
     #print(final_interest[findall(x->x==s, time)][1])
-    return final_interest, A, B
+    return final_interest, finals, A, B, 25*I- (12*delta_x)*A - (12*delta_x*10)*B
 end
 
 function one_step!(final::Array{ComplexF64},delta_x::Float64,timek::Float64,A::SparseMatrixCSC,B::SparseMatrixCSC,integ)
