@@ -86,21 +86,25 @@ function BDF4(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0.0005,
     #     final2=final3;
     #     final3=final4;
     # end
+    A1 = 25*I- (12*delta_x)*A
+    A2 = -(12*delta_x)*B;
     for k=5:length(time)
-        final_interest[k]= one_step!(finals,delta_x,time[k],A,B,integ)
+        final_interest[k]= one_step!(finals,delta_x,time[k],A1,A2,integ)
     end
     #print(final_interest[findall(x->x==s, time)][1])
-    return final_interest, finals, A, B, 25*I- (12*delta_x)*A - (12*delta_x*10)*B
+    return final_interest, finals, A, A, 25*I- (12*delta_x)*A - (12*delta_x*10)*B
 end
 
 function one_step!(final::Array{ComplexF64},delta_x::Float64,timek::Float64,A::SparseMatrixCSC,B::SparseMatrixCSC,integ)
-    lhs=25*I- (12*delta_x)*A - (12*delta_x*timek)*B;
-    rhs=48*final[:,4]-36*final[:,3]+16*final[:,2]-3*final[:,1];
-    final4=lhs\rhs;
-    fi =real(sum(final4.*integ));
+    #lhs=25*I- (12*delta_x)*A - (12*delta_x*timek)*B;
+    #lhs = A+timek*B;
+    #rhs=48*final[:,4]-36*final[:,3]+16*final[:,2]-3*final[:,1];
+    #final4=lhs\rhs;
+    rhs = final*[-3,16,-36,48];
     final[:,1]=final[:,2];
     final[:,2]=final[:,3];
     final[:,3]=final[:,4];
-    final[:,4]=final4;
+    final[:,4]=(A+timek*B)\rhs;
+    fi =real(sum(final[:,4].*integ));
     fi
 end
