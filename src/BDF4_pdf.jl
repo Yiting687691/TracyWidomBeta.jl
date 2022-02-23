@@ -1,8 +1,5 @@
-function BDF4(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0.0005, delta_theta = 0.0025*pi, l = 20)
-
-#initial_time=13; final_time=-10; delta_x=-0.0005;
+function BDF4_pdf(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0.0005, delta_theta = 0.0025*pi, l = 20)
     time=initial_time:delta_x:final_time;
-#delta_theta=0.0025*pi; l=20; f
     final_theta=l*pi; domain=0:delta_theta:final_theta+delta_theta;
     p=(-(length(domain)-1)/2):1:(length(domain)-1)/2;
     initial=zeros(length(domain),1);
@@ -41,7 +38,6 @@ function BDF4(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0.0005,
     2*((1/(2*im))*S_mhl-(1/(2*im))*S_phl)*((1/2)*S_phl+(1/2)*S_mhl);
     B=((-1/2)*I+(1/4)*S_ml+(1/4)*S_pl)*D1-2*((1/(2*im))*S_mhl-(1/(2*im))*S_phl)*((1/2)*S_phl+(1/2)*S_mhl);
     final=initial_trans
-
     N=(-(length(domain)-1)/2):1:(length(domain)-1)/2;
     integ=zeros(ComplexF64,length(N));
     for j=1:length(N)
@@ -75,31 +71,24 @@ function BDF4(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0.0005,
     final_interest[4]=real(sum(final3.*integ));
     delta_x=delta_x*100;
     finals = hcat(final,final1,final2,final3)
-    # for k=5:length(time)
-    #     #lhs=25*I-12*delta_x*(A+time[k]*B);
-    #     lhs=25*I- (12*delta_x)*A - (12*delta_x*time[k])*B;
-    #     rhs=48*final3-36*final2+16*final1-3*final;
-    #     final4=lhs\rhs;
-    #     final_interest[k]=real(sum(final4.*integ));
-    #     final=final1;
-    #     final1=final2;
-    #     final2=final3;
-    #     final3=final4;
-    # end
     A1 = 25*I- (12*delta_x)*A
     A2 = -(12*delta_x)*B;
     for k=5:length(time)
         final_interest[k]= one_step!(finals,delta_x,time[k],A1,A2,integ)
     end
-    #print(final_interest[findall(x->x==s, time)][1])
-    return final_interest, finals, A, A, 25*I- (12*delta_x)*A - (12*delta_x*10)*B
+    final_interest_pdf=zeros(length(final_interest),1);
+    for i=1:length(final_interest)
+        if i==1
+            final_interest_pdf[i]=(-3*final_interest[i]+4*final_interest[i+1]-final_interest[i+2])/(2*delta_x);
+        elseif i==length(final_interest)
+            final_interest_pdf[i]=(final_interest[i-2]-4*final_interest[i-1]+3*final_interest[i])/(2*delta_x);
+        else
+            final_interest_pdf[i]=(-final_interest[i-1]+final_interest[i+1])/(2*delta_x);
+        end
+    end
+    return final_interest_pdf[findall(x->x==s, time)][1]
 end
-
 function one_step!(final::Array{ComplexF64},delta_x::Float64,timek::Float64,A::SparseMatrixCSC,B::SparseMatrixCSC,integ)
-    #lhs=25*I- (12*delta_x)*A - (12*delta_x*timek)*B;
-    #lhs = A+timek*B;
-    #rhs=48*final[:,4]-36*final[:,3]+16*final[:,2]-3*final[:,1];
-    #final4=lhs\rhs;
     rhs = final*[-3,16,-36,48];
     final[1:end,1]=final[1:end,2];
     final[1:end,2]=final[1:end,3];
