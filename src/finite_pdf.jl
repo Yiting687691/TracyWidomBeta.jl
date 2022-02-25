@@ -8,7 +8,8 @@ function finite_pdf(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0
     end
     final=initial;
     g1=zeros(length(initial),1); g2=g1;
-    final_interest=zeros(length(time),1); final_interest[1]=1;
+    final_in=zeros(length(time),1);
+    final_interest=zeros(length(time),1); final_interest[1]=0;
     e=ones(Int64,length(domain)-1,1);
     p=ones(Int64,length(domain),1);
     T=sparse(Array(1:length(domain)-1),Array(2:length(domain)),vec(e),length(domain),length(domain))+
@@ -30,18 +31,24 @@ function finite_pdf(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0
         rhs=(sparse(Array(1:length(domain)),Array(1:length(domain)),vec(p),length(domain),length(domain))+(delta_x/2)*
             TT+(delta_x/2)*U1)*final+(delta_x/2)*(g1+g2);
         lhs=sparse(Array(1:length(domain)),Array(1:length(domain)),vec(p),length(domain),length(domain))-(delta_x/2)*TT-(delta_x/2)*U2;
-            final=lhs\rhs;
-        final_interest[k+1]=final[round(Int,pi/delta_theta)];
+        final=lhs\rhs;
+        final_in=TT*final+U2*final+g2;
+        final_interest[k+1]=final_in[round(Int,pi/delta_theta)];
     end
-    final_interest_pdf=zeros(length(final_interest),1);
-    for i=1:length(final_interest)
-        if i==1
-            final_interest_pdf[i]=(-3*final_interest[i]+4*final_interest[i+1]-final_interest[i+2])/(2*delta_x);
-        elseif i==length(final_interest)
-            final_interest_pdf[i]=(final_interest[i-2]-4*final_interest[i-1]+3*final_interest[i])/(2*delta_x);
-        else
-            final_interest_pdf[i]=(-final_interest[i-1]+final_interest[i+1])/(2*delta_x);
+    S = Chebyshev(final_time..initial_time);
+    n=length(final_interest);
+    while true
+        if mod(n,10)==0
+            break
         end
+        n=n-1;
     end
-    return final_interest_pdf[findall(x->x==s, time)][1]
+    m=Int64(n/10);
+    n=length(final_interest);
+    V=zeros(n,m);
+    for k = 1:m
+           V[:,k] = Fun(S,[zeros(k-1);1]).(time)
+    end
+    f = Fun(S,V\vec(final_interest));
+    return f(s)
 end
