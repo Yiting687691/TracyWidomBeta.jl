@@ -18,6 +18,7 @@ function finite_cdf(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0
     TT=sparse(Array(1:length(domain)),Array(1:length(domain)),kk,length(domain),length(domain))*T;
     U=sparse(Array(1:length(domain)-1),Array(2:length(domain)),-1*vec(e),length(domain),length(domain))+
         sparse(Array(2:length(domain)),Array(1:length(domain)-1),vec(e),length(domain),length(domain));
+    I=sparse(Array(1:length(domain)),Array(1:length(domain)),vec(p),length(domain),length(domain));
     for k=1:length(time)-1
         u1=(1/(2*delta_theta))*((time[k].+(2*sin.(2*domain))/beta).*(sin.(domain)).^2-(cos.(domain)).^2);
         U1=sparse(Array(1:length(domain)),Array(1:length(domain)),u1,length(domain),length(domain))*U;
@@ -27,11 +28,25 @@ function finite_cdf(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0
             (sin(final_theta))^2-(cos(final_theta))^2)/(2*delta_theta));
         g2[end]=((-2*(sin(final_theta))^4)/(beta*(delta_theta)^2))-(((time[k+1]+(2*sin(2*final_theta))/beta)*
             (sin(final_theta))^2-(cos(final_theta))^2)/(2*delta_theta));
-        rhs=(sparse(Array(1:length(domain)),Array(1:length(domain)),vec(p),length(domain),length(domain))+(delta_x/2)*
-            TT+(delta_x/2)*U1)*final+(delta_x/2)*(g1+g2);
-        lhs=sparse(Array(1:length(domain)),Array(1:length(domain)),vec(p),length(domain),length(domain))-(delta_x/2)*TT-(delta_x/2)*U2;
-            final=lhs\rhs;
+        rhs=(I+(delta_x/2)*TT+(delta_x/2)*U1)*final+(delta_x/2)*(g1+g2);
+        lhs=I-(delta_x/2)*TT-(delta_x/2)*U2;
+        final=lhs\rhs;
         final_interest[k+1]=final[round(Int,pi/delta_theta)];
     end
-    return final_interest[findall(x->x==s, time)][1]
+    S = Chebyshev(final_time..initial_time);
+    n=length(final_interest);
+    while true
+        if mod(n,10)==0
+            break
+        end
+        n=n-1;
+    end
+    m=Int64(n/10);
+    n=length(final_interest);
+    V=zeros(n,m);
+    for k = 1:m
+           V[:,k] = Fun(S,[zeros(k-1);1]).(time)
+    end
+    f = Fun(S,V\vec(final_interest));
+    return f(s)
 end

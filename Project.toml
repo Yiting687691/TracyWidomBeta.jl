@@ -4,6 +4,7 @@ authors = ["Yiting Zhang"]
 version = "0.1.0"
 
 [deps]
+ApproxFun = "28f2ccd6-bb30-5033-b560-165f7b14dc2f"
 ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 Trapz = "592b5752-818d-11e9-1e9a-2b8ca4a44cd1"
 
