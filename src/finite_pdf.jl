@@ -1,4 +1,4 @@
-function finite_pdf(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0.01, delta_theta = 0.001*pi)
+function finite_pdf(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.01, delta_theta = 0.001*pi)
     time=initial_time:delta_x:final_time;
     final_theta=3*pi-delta_theta; domain=0:delta_theta:final_theta; domain=domain[2:end-1];
     initial=ones(length(domain),1);
@@ -35,20 +35,8 @@ function finite_pdf(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0
         final_in=TT*final+U2*final+g2;
         final_interest[k+1]=final_in[round(Int,pi/delta_theta)];
     end
-    S = Chebyshev(final_time..initial_time);
-    n=length(final_interest);
-    while true
-        if mod(n,10)==0
-            break
-        end
-        n=n-1;
-    end
-    m=Int64(n/10);
-    n=length(final_interest);
-    V=zeros(n,m);
-    for k = 1:m
-           V[:,k] = Fun(S,[zeros(k-1);1]).(time)
-    end
-    f = Fun(S,V\vec(final_interest));
-    return f(s)
+    j=PeriodicSegment(initial_time,final_time)
+    S = Fourier(j);
+    F = Fun(S,ApproxFun.transform(S,vec(final_interest)))
+    return F
 end
