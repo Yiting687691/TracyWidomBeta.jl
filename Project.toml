@@ -9,6 +9,7 @@ ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 Trapz = "592b5752-818d-11e9-1e9a-2b8ca4a44cd1"
 
 [compat]
+ApproxFun = "0.13"
 ForwardDiff = "0.10"
 julia = "1"
 
