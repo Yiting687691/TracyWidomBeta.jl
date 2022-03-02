@@ -76,29 +76,8 @@ function BDF4_pdf(beta,s;initial_time = 13.0, final_time = -10.0, delta_x = -0.0
     for k=5:length(time)
         final_interest[k]= one_step!(finals,delta_x,time[k],A1,A2,integ)
     end
-    S = Chebyshev(final_time..initial_time);
-    n=length(final_interest);
-    while true
-        if mod(n,10)==0
-            break
-        end
-        n=n-1;
-    end
-    m=Int64(n/10);
-    n=length(final_interest);
-    V=zeros(n,m);
-    for k = 1:m
-           V[:,k] = Fun(S,[zeros(k-1);1]).(time)
-    end
-    f = Fun(S,V\vec(final_interest));
-    return f(s)
-end
-function one_step!(final::Array{ComplexF64},delta_x::Float64,timek::Float64,A::SparseMatrixCSC,B::SparseMatrixCSC,integ)
-    rhs = final*[-3,16,-36,48];
-    final[1:end,1]=final[1:end,2];
-    final[1:end,2]=final[1:end,3];
-    final[1:end,3]=final[1:end,4];
-    final[1:end,4]=(A+timek*B)\rhs;
-    fi =real(sum(((A+timek*B)*final[:,4]).*integ));
-    fi
+    j=PeriodicSegment(initial_time,final_time)
+    S = Laurent(j);
+    F = Fun(S,ApproxFun.transform(S,vec(final_interest[1:end-1])));
+    return real(F)
 end

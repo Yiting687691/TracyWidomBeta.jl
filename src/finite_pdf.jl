@@ -36,7 +36,7 @@ function finite_pdf(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.0
         final_interest[k+1]=final_in[round(Int,pi/delta_theta)];
     end
     j=PeriodicSegment(initial_time,final_time)
-    S = Fourier(j);
-    F = Fun(S,ApproxFun.transform(S,vec(final_interest)))
-    return F
+    S = Laurent(j);
+    F = Fun(S,ApproxFun.transform(S,vec(final_interest[1:end-1])))
+    return real(F),final_interest
 end

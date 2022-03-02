@@ -33,8 +33,8 @@ function finite_cdf(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.0
         final=lhs\rhs;
         final_interest[k+1]=final[round(Int,pi/delta_theta)];
     end
-    j=PeriodicSegment(final_time,initial_time)
-    S = Fourier(j);
-    F = Fun(S,ApproxFun.transform(S,vec(final_interest)))
-    return F
+    j=PeriodicSegment(initial_time,final_time)
+    S = Laurent(j);
+    F = Fun(S,ApproxFun.transform(S,vec(final_interest[1:end-1])));
+    return real(F),final_interest
 end
