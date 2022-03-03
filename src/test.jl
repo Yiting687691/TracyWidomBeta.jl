@@ -1,4 +1,4 @@
-function finite_cdf(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.01, delta_theta = 0.001*pi)
+function test(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.01, delta_theta = 0.001*pi)
     time=initial_time:delta_x:final_time;
     final_theta=3*pi-delta_theta; domain=0:delta_theta:final_theta; domain=domain[2:end-1];
     initial=ones(length(domain),1);
@@ -33,9 +33,14 @@ function finite_cdf(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.0
         final=lhs\rhs;
         final_interest[k+1]=final[round(Int,pi/delta_theta)];
     end
-    j=PeriodicSegment(final_time,initial_time);
-    S = Laurent(j);
+    S = Chebyshev(-10..13);
+    n=length(time);
+    m=Int64((n-1)/2);
+    V=zeros(n,m);
     final_in=vec(final_interest)
-    f = Fun(S,ApproxFun.transform(S,reverse(final_in)[1:end-1]));
-    return real(f),final_in
+    for k = 1:m
+           V[:,k] = Fun(S,[zeros(k-1);1]).(time)
+    end
+    f = Fun(S,V\final_in);
+    return f,final_in
 end
