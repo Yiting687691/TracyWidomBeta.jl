@@ -76,8 +76,13 @@ function BDF4_cdf(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.000
     for k=5:length(time)
         final_interest[k]= one_step!(finals,delta_x,time[k],A1,A2,integ)
     end
-    j=PeriodicSegment(initial_time,final_time)
+    ϕ = x -> (erf.(x) .+ 1.0)/2;
+    j=PeriodicSegment(final_time,initial_time);
     S = Laurent(j);
-    F = Fun(S,ApproxFun.transform(S,vec(final_interest[1:end-1])));
-    return real(F)
+    final_int=final_interest[2:end] |> reverse;
+    t=time[2:end] |> reverse;
+    ff = Fun(S, ApproxFun.transform(S,final_int - ϕ(t)))
+    S2 = -10..13 |> Chebyshev
+    cdf_cheb = Fun(ff,S2,150) + Fun(ϕ,S2) |> real
+    return cdf_cheb,final_int,t
 end

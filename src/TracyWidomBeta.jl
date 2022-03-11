@@ -1,5 +1,5 @@
 module TracyWidomBeta
-using LinearAlgebra,Statistics,SparseArrays,Random,Distributions,Printf,Trapz,RandomMatrices,ApproxFun
+using LinearAlgebra,Statistics,SparseArrays,Random,Distributions,Printf,Trapz,RandomMatrices,ApproxFun,SpecialFunctions
 function one_step!(final::Array{ComplexF64},delta_x::Float64,timek::Float64,A::SparseMatrixCSC,B::SparseMatrixCSC,integ)
     rhs = final*[-3,16,-36,48];
     final[1:end,1]=final[1:end,2];
@@ -11,16 +11,12 @@ function one_step!(final::Array{ComplexF64},delta_x::Float64,timek::Float64,A::S
 end
 export BDF4_cdf
 export finite_cdf
-export CDF
 export finite_pdf
 export BDF4_pdf
-export PDF
 export test
 include("BDF4_cdf.jl")
 include("finite_cdf.jl")
-include("CDF.jl")
 include("finite_pdf.jl")
 include("BDF4_pdf.jl")
-include("PDF.jl")
 include("test.jl")
 end

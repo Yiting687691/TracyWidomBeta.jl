@@ -33,9 +33,13 @@ function finite_cdf(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.0
         final=lhs\rhs;
         final_interest[k+1]=final[round(Int,pi/delta_theta)];
     end
+    ϕ = x -> (erf.(x) .+ 1.0)/2;
     j=PeriodicSegment(final_time,initial_time);
     S = Laurent(j);
-    final_in=vec(final_interest)
-    f = Fun(S,ApproxFun.transform(S,reverse(final_in)[1:end-1]));
-    return real(f),final_in
+    final_int=final_interest[2:end] |> reverse;
+    t=time[2:end] |> reverse;
+    ff = Fun(S, ApproxFun.transform(S,final_int - ϕ(t)))
+    S2 = -10..13 |> Chebyshev
+    cdf_cheb = Fun(ff,S2,150) + Fun(ϕ,S2) |> real
+    return cdf_cheb,final_int,t
 end

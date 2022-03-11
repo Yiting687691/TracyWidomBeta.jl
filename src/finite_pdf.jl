@@ -35,8 +35,8 @@ function finite_pdf(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.0
         final_in=TT*final+U2*final+g2;
         final_interest[k+1]=final_in[round(Int,pi/delta_theta)];
     end
-    j=PeriodicSegment(initial_time,final_time)
+    j=PeriodicSegment(final_time,initial_time)
     S = Laurent(j);
-    F = Fun(S,ApproxFun.transform(S,vec(final_interest[1:end-1])))
-    return real(F),final_interest
+    F = Fun(S,ApproxFun.transform(S,vec(final_interest[2:end]) |> reverse))
+    return real(F),final_interest[2:end] |> reverse, time[2:end] |> reverse
 end
