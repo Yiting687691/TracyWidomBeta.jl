@@ -21,7 +21,7 @@ end
 err2=vec(err2);
 p1=plot(err, label = "Finite Difference Method", lw = 3)
 plot!(err2, label = "Spectral Method", lw = 3)
-ylabel!("Log Error (base 10)")
+ylabel!("Error")
 
 
 
