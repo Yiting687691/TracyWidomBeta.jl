@@ -13,5 +13,3 @@ F=TW(2,method="BDF4")
 f=F'
 plot(f)
 ```
-
-[![CI](https://github.com/Yiting687691/TracyWidomBeta.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/Yiting687691/TracyWidomBeta.jl/actions/workflows/CI.yml)
