@@ -1,6 +1,15 @@
 # TracyWidomBeta
+Compute the Tracy-Widom distribution for arbitrary β>0.
 
-[![Build Status](https://travis-ci.com/Yiting687691/TracyWidomBeta.jl.svg?branch=main)](https://travis-ci.com/Yiting687691/TracyWidomBeta.jl)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/Yiting687691/TracyWidomBeta.jl?svg=true)](https://ci.appveyor.com/project/Yiting687691/TracyWidomBeta-jl)
-[![Coverage](https://codecov.io/gh/Yiting687691/TracyWidomBeta.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/Yiting687691/TracyWidomBeta.jl)
-[![Coverage](https://coveralls.io/repos/github/Yiting687691/TracyWidomBeta.jl/badge.svg?branch=main)](https://coveralls.io/github/Yiting687691/TracyWidomBeta.jl?branch=main)
+An example usage follows.
+```
+F=TW(2)
+f=F'
+plot(f)
+```
+This code uses the finite-difference method by default and plots the probability density function of the Tracy-Widom distribution. F is defined on the interval [-10,13]. If higher accuracy is preferred, specify the method as follows.
+```
+F=TW(2,method="BDF4")
+f=F'
+plot(f)
+```
