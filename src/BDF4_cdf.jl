@@ -83,6 +83,6 @@ function BDF4_cdf(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.000
     t=time[2:end] |> reverse;
     ff = Fun(S, ApproxFun.transform(S,final_int - ϕ(t)))
     S2 = -10..13 |> Chebyshev
-    cdf_cheb = Fun(ff,S2,150) + Fun(ϕ,S2) |> real
+    cdf_cheb = Fun(ff,S2,1000) + Fun(ϕ,S2) |> real
     return cdf_cheb,final_int,t
 end
