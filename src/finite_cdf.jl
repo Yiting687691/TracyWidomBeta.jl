@@ -1,6 +1,6 @@
-function finite_cdf(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.001,delta_theta = 0.001*pi)
+function finite_cdf(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.01,delta_theta = 0.001*pi)
     time=initial_time:delta_x:final_time;
-    final_theta=2*pi; domain=0:delta_theta:final_theta;
+    final_theta=2*pi; domain=0:delta_theta:final_theta;domain=domain[2:end-1];
     initial=ones(length(domain),1);
     ind=convert(Int64,ceil((pi/2)/delta_theta));
     for j=1:ind-1
@@ -38,6 +38,6 @@ function finite_cdf(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.0
     t=time[2:end] |> reverse;
     ff = Fun(S, ApproxFun.transform(S,final_int - ϕ(t)))
     S2 = -10..13 |> Chebyshev
-    cdf_cheb = Fun(ff,S2,1000) + Fun(ϕ,S2) |> real
+    cdf_cheb = Fun(ff,S2,150) + Fun(ϕ,S2) |> real
     return cdf_cheb,final_int,t
 end
