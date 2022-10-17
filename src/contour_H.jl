@@ -1,3 +1,4 @@
+#This function outputs the contour plot of H for user-decided value of beta.
 function contour_H(beta;initial_time = 13.0, final_time = -10.0, delta_x = -0.001,delta_theta = 0.001*pi)
     time=initial_time:delta_x:final_time;
     final_theta=pi; domain=0:delta_theta:final_theta;domain=domain[2:end];
