@@ -14,8 +14,8 @@ function model_test(beta,n)
         H=(1/sqrt(beta))*SymTridiagonal(N,C1)
         ei[j]=n^(1/6)*(eigmax(H)[1]-2*sqrt(n))
     end
-    s=Plots.histogram(ei,normed=true,label="Normed Histogram",xticks=([-5;-5:0.5:1;1],[-5;-5:0.5:1;1]),dpi=500,size=(1200,800))
-    Plots.plot!(f,xlims=[-5,1],label="Finite Difference",lw=3,dpi=500,size=(1200,800))
-    Plots.plot!(ff,xlims=[-5,1],label="Spectral",lw=3,dpi=500,size=(1200,800))
+    s=Plots.histogram(ei,normed=true,label="Normed Histogram",xticks=([-5;-5:0.5:1;1],[-5;-5:0.5:1;1]),dpi=1000)
+    Plots.plot!(f,xlims=[-5,1],label="Finite Difference",lw=3,dpi=1000)
+    Plots.plot!(ff,xlims=[-5,1],label="Spectral",lw=3,dpi=1000)
     return s
 end

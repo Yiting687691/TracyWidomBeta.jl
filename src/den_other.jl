@@ -48,11 +48,11 @@ function den_other(beta,n;initial_time = 13.0, final_time = -10.0, delta_x = -0.
         ff=final_interest[ind2:end];
         tt=t[ind2:end];
         if i==1
-            Plots.plot!(tt,ff,lw=3,dpi=500,size=(1200,800),label="Largest")
+            Plots.plot!(tt,ff,lw=3,dpi=1000,label="Largest")
         elseif i==2
-            Plots.plot!(tt,ff,lw=3,dpi=500,size=(1200,800),label="Second Largest")
+            Plots.plot!(tt,ff,lw=3,dpi=1000,label="Second Largest")
         elseif i==3
-            Plots.plot!(tt,ff,lw=3,dpi=500,size=(1200,800),label="Third Largest")
+            Plots.plot!(tt,ff,lw=3,dpi=1000,label="Third Largest")
         end
     end
     return ss
