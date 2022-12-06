@@ -3,6 +3,8 @@ function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx=-0.002,M=8000,l=20,perio
     θM=l;h=θM/(M-1);
     θ=0:h:θM;
     θ=θ*pi;
+    θM=θM*pi;
+    h=h*pi;
     MM=-floor(M/2):1:floor((M-1)/2)
     initial=zeros(M,1)
     initial1=zeros(M,1)
