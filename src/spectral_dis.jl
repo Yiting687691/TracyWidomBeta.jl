@@ -1,4 +1,4 @@
-function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx=-0.002,M=8000,l=20,period_flag=true)
+function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx=-0.002,M=8000,l=20)
     x=x0:Δx:xN;xl=length(x)
     θM=l;h=θM/(M-1);
     θ=0:h:θM;
@@ -39,13 +39,8 @@ function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx=-0.002,M=8000,l=20,perio
     final_interest_cdf=zeros(xl,1); final_interest_cdf[1]=1
     final_interest_pdf=zeros(xl,1); final_interest_pdf[1]=0
     ll=convert(Int64,l/2)
-    if period_flag
-        mme = spdiagm( ll => fill(1.0,M-ll), ll-M => fill(1.0,ll))
-        me = spdiagm( -ll => fill(1.0,M-ll), M-ll => fill(1.0,ll))
-    else
-        mme = spdiagm( ll => fill(1.0,MM-ll))
-        me = spdiagm( -ll => fill(1.0,MM-ll))
-    end
+    mme = spdiagm( ll => fill(1.0,M-ll), ll-M => fill(1.0,ll))
+    me = spdiagm( -ll => fill(1.0,M-ll), M-ll => fill(1.0,ll))
     ms = (me - mme)/2im;
     ms2 = (me^2 - mme^2)/2im;
     mc = (me + mme)/2;
