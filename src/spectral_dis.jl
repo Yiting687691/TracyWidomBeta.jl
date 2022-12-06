@@ -1,16 +1,16 @@
-function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx=-0.002,M=8000,l=20)
-    x=x0:Δx:xN;xl=length(x)
-    θM=l;h=θM/(M-1);
+function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx_s=-0.002,M_s=8000,l=20)
+    x=x0:Δx_s:xN;xl=length(x)
+    θM=l;h=θM/(M_s-1);
     θ=0:h:θM;
     θ=θ*pi;
     θM=θM*pi;
     h=h*pi;
-    MM=-floor(M/2):1:floor((M-1)/2)
-    initial=zeros(M,1)
-    initial1=zeros(M,1)
-    initial2=zeros(M,1)
-    initial3=zeros(M,1)
-    initial4=zeros(M,1)
+    MM=-floor(M_s/2):1:floor((M_s-1)/2)
+    initial=zeros(M_s,1)
+    initial1=zeros(M_s,1)
+    initial2=zeros(M_s,1)
+    initial3=zeros(M_s,1)
+    initial4=zeros(M_s,1)
     ind=convert(Int64,ceil((pi/2)/h))
     for j=1:ind-1
         initial[j]=((csc(j*h)*sec(j*h))*(3*(cot(j*h))^2+x0)/(4*sqrt(cot(j*h)/β)))*
@@ -24,11 +24,11 @@ function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx=-0.002,M=8000,l=20)
         initial4[j]=((csc(j*h)*sec(j*h))*(3*(cot(j*h))^2+x0-4*Δx)/(4*sqrt(cot(j*h)/β)))*
         pdf(Normal(),(x0-4*Δx-(cot(j*h))^2)/(sqrt((4/β)*cot(j*h))))
     end
-    initial_trans=zeros(ComplexF64,M)
-    initial_trans1=zeros(ComplexF64,M)
-    initial_trans2=zeros(ComplexF64,M)
-    initial_trans3=zeros(ComplexF64,M)
-    initial_trans4=zeros(ComplexF64,M)
+    initial_trans=zeros(ComplexF64,M_s)
+    initial_trans1=zeros(ComplexF64,M_s)
+    initial_trans2=zeros(ComplexF64,M_s)
+    initial_trans3=zeros(ComplexF64,M_s)
+    initial_trans4=zeros(ComplexF64,M_s)
     for k=1:length(initial)
         initial_trans[k]=(1/θM)*trapz(θ,vec(initial.*exp.(-2*im*MM[k]*θ/l)))
         initial_trans1[k]=(1/θM)*trapz(θ,vec(initial1.*exp.(-2*im*MM[k]*θ/l)))
@@ -39,13 +39,13 @@ function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx=-0.002,M=8000,l=20)
     final_interest_cdf=zeros(xl,1); final_interest_cdf[1]=1
     final_interest_pdf=zeros(xl,1); final_interest_pdf[1]=0
     ll=convert(Int64,l/2)
-    mme = spdiagm( ll => fill(1.0,M-ll), ll-M => fill(1.0,ll))
-    me = spdiagm( -ll => fill(1.0,M-ll), M-ll => fill(1.0,ll))
+    mme = spdiagm( ll => fill(1.0,M_s-ll), ll-M_s => fill(1.0,ll))
+    me = spdiagm( -ll => fill(1.0,M_s-ll), M_s-ll => fill(1.0,ll))
     ms = (me - mme)/2im;
     ms2 = (me^2 - mme^2)/2im;
     mc = (me + mme)/2;
     mc2 = (me^2 + mme^2)/2;
-    DD = 𝒟(θM,M,1) |> sparse;
+    DD = 𝒟(θM,M_s,1) |> sparse;
     A = (-2/β)*ms^4*DD^2 - (8/β)*ms^3*mc*DD - (2/β)*ms2*ms^2*DD + mc^2*DD - (4/β)*(ms*mc*ms2 + ms^2*mc2) - 2*mc*ms;
     B = -ms^2*DD - 2*ms*mc;
     final=initial_trans
