@@ -1,16 +1,10 @@
-function TW(β;method="finite",type="cdf")
-    if method=="finite" && type=="cdf"
-        sol=finite_dis(β,1000)
-        TW=sol[1]
-    elseif method=="finite" && type=="pdf"
-        sol=finite_dis(β,1000)
-        TW=sol[2]
-    elseif method=="spectral" && type=="cdf"
-        sol=spectral_dis(β,1000)
-        TW=sol[1]
-    elseif method=="spectral" && type=="pdf"
-        sol=spectral_dis(β,1000)
-        TW=sol[2]
+function TW(β,cheb_coef;method="finite")
+    if method=="finite"
+        sol=finite_dis(β,cheb_coef)
+        TW=sol
+    elseif method=="spectral"
+        sol=spectral_dis(β,cheb_coef)
+        TW=sol
     else
         TW="Input valid method"
     end
