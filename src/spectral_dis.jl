@@ -15,14 +15,14 @@ function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx_s=-0.002,M_s=8000,l=20)
     for j=1:ind-1
         initial[j]=((csc(j*h)*sec(j*h))*(3*(cot(j*h))^2+x0)/(4*sqrt(cot(j*h)/β)))*
         pdf(Normal(),(x0-(cot(j*h))^2)/(sqrt((4/β)*cot(j*h))))
-        initial1[j]=((csc(j*h)*sec(j*h))*(3*(cot(j*h))^2+x0-Δx)/(4*sqrt(cot(j*h)/β)))*
-        pdf(Normal(),(x0-Δx-(cot(j*h))^2)/(sqrt((4/β)*cot(j*h))))
-        initial2[j]=((csc(j*h)*sec(j*h))*(3*(cot(j*h))^2+x0-2*Δx)/(4*sqrt(cot(j*h)/β)))*
-        pdf(Normal(),(x0-2*Δx-(cot(j*h))^2)/(sqrt((4/β)*cot(j*h))))
-        initial3[j]=((csc(j*h)*sec(j*h))*(3*(cot(j*h))^2+x0-3*Δx)/(4*sqrt(cot(j*h)/β)))*
-        pdf(Normal(),(x0-3*Δx-(cot(j*h))^2)/(sqrt((4/β)*cot(j*h))))
-        initial4[j]=((csc(j*h)*sec(j*h))*(3*(cot(j*h))^2+x0-4*Δx)/(4*sqrt(cot(j*h)/β)))*
-        pdf(Normal(),(x0-4*Δx-(cot(j*h))^2)/(sqrt((4/β)*cot(j*h))))
+        initial1[j]=((csc(j*h)*sec(j*h))*(3*(cot(j*h))^2+x0-Δx_s)/(4*sqrt(cot(j*h)/β)))*
+        pdf(Normal(),(x0-Δx_s-(cot(j*h))^2)/(sqrt((4/β)*cot(j*h))))
+        initial2[j]=((csc(j*h)*sec(j*h))*(3*(cot(j*h))^2+x0-2*Δx_s)/(4*sqrt(cot(j*h)/β)))*
+        pdf(Normal(),(x0-2*Δx_s-(cot(j*h))^2)/(sqrt((4/β)*cot(j*h))))
+        initial3[j]=((csc(j*h)*sec(j*h))*(3*(cot(j*h))^2+x0-3*Δx_s)/(4*sqrt(cot(j*h)/β)))*
+        pdf(Normal(),(x0-3*Δx_s-(cot(j*h))^2)/(sqrt((4/β)*cot(j*h))))
+        initial4[j]=((csc(j*h)*sec(j*h))*(3*(cot(j*h))^2+x0-4*Δx_s)/(4*sqrt(cot(j*h)/β)))*
+        pdf(Normal(),(x0-4*Δx_s-(cot(j*h))^2)/(sqrt((4/β)*cot(j*h))))
     end
     initial_trans=zeros(ComplexF64,M_s)
     initial_trans1=zeros(ComplexF64,M_s)
@@ -63,11 +63,11 @@ function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx_s=-0.002,M_s=8000,l=20)
     end
     finals_cdf = hcat(final4,final3,final2,final1,final)
     finals_pdf = hcat(final4,final3,final2,final1,final)
-    A1 = 137*I- (60*Δx)*A
-    A2 = -(60*Δx)*B
+    A1 = 137*I- (60*Δx_s)*A
+    A2 = -(60*Δx_s)*B
     for k=2:xl
-        final_interest_cdf[k]= one_step5!(finals_cdf,Δx,x[k],A1,A2,integ)
-        final_interest_pdf[k]= one_step5_pdf!(finals_pdf,Δx,x[k],A1,A2,integ)
+        final_interest_cdf[k]= one_step5!(finals_cdf,Δx_s,x[k],A1,A2,integ)
+        final_interest_pdf[k]= one_step5_pdf!(finals_pdf,Δx_s,x[k],A1,A2,integ)
     end
     ϕ=y->(erf.(y).+1.0)/2
     j=PeriodicSegment(xN,x0)
