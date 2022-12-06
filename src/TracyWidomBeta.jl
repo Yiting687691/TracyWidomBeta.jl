@@ -7,17 +7,12 @@ using Distributions
 using Trapz
 using ApproxFun
 using SpecialFunctions
-import Plots
 
-include("one_step.jl")
-include("finite_cdf.jl")
-include("BDF4_cdf.jl")
+include("one_step5.jl")
+include("finite_dis.jl")
+include("spectral_dis.jl")
 include("TW.jl")
-include("model_test.jl")
-include("density_theta.jl")
-include("water_den.jl")
-include("water_TW.jl")
-include("den_other.jl")
+include("one_step5_pdf.jl")
 
 export TW
 
