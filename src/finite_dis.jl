@@ -2,7 +2,7 @@ function finite_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx=-0.01,M=10^3)
     
     # Set up the domain and initial condition
     x=x0:Δx:xN;xl=length(x);
-    θM=1;h=θM/(M-1);θ=0:h:θM;θ=θ*pi;θ=θ[2:end];l=M-1;
+    θM=1;h=θM/(M-1);θ=0:h:θM;θ=θ[2:end];θ=θ*pi;h=h*pi;θM=θ[end];l=M-1;
     initial=ones(l,1);
     ind=convert(Int64,ceil((pi/2)/h));
     for i=1:ind-1
