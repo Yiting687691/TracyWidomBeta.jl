@@ -1,26 +1,31 @@
 # TracyWidomBeta
-Compute the Tracy-Widom distribution for arbitrary β>0.
+Compute both the cdf and pdf of the Tracy-Widom distribution for arbitrary β>0.
 
 An example usage follows.
 ```
-F=TW(2)
-F(0.5)
-f=F'
-f(0.5)
-plot(F)
-plot(f)
+F=TW(2,1000)
+F_cdf=F[1]
+F_cdf(0.5)
+F_pdf=F[2]
+F_pdf(0.5)
+plot(F_cdf)
+plot(F_pdf)
 ```
-This code uses the default finite-difference method. It first computes the cdf of the Tracy-Widom distribution function for β=2, and then evaluates it at x=0.5. The pdf can also be obtained and evaluated at x=0.5. Both distributions can be plotted directly. Note that F is defined only on the interval [-10,13]. This domain is so chosen since F is identically zero outside of it. If higher accuracy is preferred, specify the method as the following.
+The above code uses the default finite-difference discretization. It returns both cdf and pdf of the Tracy-Widom distribution function for β=2 using 1000 Fourier modes, and then evaluates them at x=0.5. The pdf can also be obtained by the following way.
 ```
-F=TW(2,method="BDF4")
-f=F'
+F_pdf=F_cdf'
 ```
-Note that if β=4, one need to account for an extra 2^(1/6) factor when evaluating at some x value. For example, if one wants to compute the cdf of the Tracy-Widom distribution for β=4 at x=-2, use the following codes.
+Both cdf and pdf can be plotted directly for x between -10 and 13. If higher accuracy is preferred, specify the method as the following.
 ```
-F=TW(4)
-F(-2/(2^(1/6)))
+F=TW(2,1000;method="spectral")
 ```
-Also note that the default algorithm only works well for β⩽450, and the accurate one works well for β⩽10. For larger values of β, one needs to use more Chebyshev points (Both algorithms use 1000 Chebyshev points by default).
+Note that for β=4, one need to account for an extra 2^(1/6) factor when evaluating at some x value. For example, if one wants to compute the cdf of the Tracy-Widom distribution for β=4 at x=-2 using the finite-difference discretization, use the following code.
+```
+F=TW(4,1000)
+F_cdf=F[1]
+F_cdf(-2/(2^(1/6)))
+```
+Also note that the default finite-difference discretization only works well for 1⩽β⩽400, and the more accurate spectral discretization works well for 1⩽β⩽10. For larger values of β, one needs to use finer grid and more Chebyshev points (both methods use 1000 Chebyshev points by default). For β<1, one needs to enlarge the domain for x.
 
 
 [![CI](https://github.com/Yiting687691/TracyWidomBeta.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/Yiting687691/TracyWidomBeta.jl/actions)
