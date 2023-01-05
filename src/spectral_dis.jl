@@ -1,5 +1,9 @@
 function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx_s=-0.002,M_s=8000,l=20)
-    x=x0:Δx_s:xN;xl=length(x)
+    x=x0:Δx_s:xN;
+    if abs(x[end])<abs(xN)
+        x=x0:Δx_s:xN-Δx_s
+    end
+    xl=length(x)
     θM=l;h=θM/(M_s-1);
     θ=0:h:θM;
     θ=θ*pi;
