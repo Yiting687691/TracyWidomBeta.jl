@@ -1,7 +1,7 @@
 function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx_s=-0.002,M_s=8000,l=20)
     x=x0:Δx_s:xN;
     if abs(x[end])<abs(xN)
-        x=x0:Δx_s:xN-Δx_s
+        x=x0:Δx_s:xN+Δx_s
     end
     xl=length(x)
     θM=l;h=θM/(M_s-1);
@@ -74,7 +74,7 @@ function spectral_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx_s=-0.002,M_s=8000,l=20)
         final_interest_pdf[k]= one_step5_pdf!(finals_pdf,Δx_s,x[k],A1,A2,integ)
     end
     ϕ=y->(erf.(y).+1.0)/2
-    j=PeriodicSegment(xN,x0)
+    j=PeriodicSegment(x[end],x0)
     S = Laurent(j)
     final_int_cdf=final_interest_cdf[2:end] |> reverse
     final_int_pdf=final_interest_pdf[2:end] |> reverse
