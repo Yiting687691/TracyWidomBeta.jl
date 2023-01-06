@@ -3,7 +3,7 @@ function finite_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx_f=-0.01,M_f=10^3)
     # Set up the domain and initial condition
     x=x0:Δx_f:xN;
     if abs(x[end])<abs(xN)
-        x=x0:Δx_f:xN-Δx_f
+        x=x0:Δx_f:xN+Δx_f
     end
     xl=length(x);
     θM=1;h=θM/(M_f-1);θ=0:h:θM;θ=θ[2:end];θ=θ*pi;h=h*pi;θM=θ[end];l=M_f-1;
