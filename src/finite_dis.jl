@@ -43,7 +43,7 @@ function finite_dis(β,cheb_para;x0=13.0,xN=-10.0,Δx_f=-0.01,M_f=10^3)
 
     # Interpolation
     ϕ = y -> (erf.(y) .+ 1.0)/2;
-    j=PeriodicSegment(xN,x0);
+    j=PeriodicSegment(x[end],x0);
     S = Laurent(j);
     final_int_pdf=final_interest_pdf[2:end] |> reverse;
     final_int_cdf=final_interest_cdf[2:end] |> reverse;
