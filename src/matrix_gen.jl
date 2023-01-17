@@ -10,13 +10,13 @@ function matrix_gen(β;method,M_f,M_s,l)
         return T,U
     elseif method=="bdf3" || method=="bdf4" || method=="bdf5" || method=="bdf6"
         ll=convert(Int64,l/2)
-        mme = spdiagm( ll => fill(1.0,M_s-ll), ll-M_s => fill(1.0,ll))
-        me = spdiagm( -ll => fill(1.0,M_s-ll), M_s-ll => fill(1.0,ll))
+        mme = spdiagm( ll => fill(1.0,M_s+1-ll), ll-M_s-1 => fill(1.0,ll))
+        me = spdiagm( -ll => fill(1.0,M_s+1-ll), M_s+1-ll => fill(1.0,ll))
         ms = (me - mme)/2im;
         ms2 = (me^2 - mme^2)/2im;
         mc = (me + mme)/2;
         mc2 = (me^2 + mme^2)/2;
-        DD = 𝒟(l*pi,M_s,1) |> sparse;
+        DD = 𝒟(l*pi,M_s+1,1) |> sparse;
         A = (-2/β)*ms^4*DD^2 - (8/β)*ms^3*mc*DD - (2/β)*ms2*ms^2*DD + mc^2*DD - (4/β)*(ms*mc*ms2 + ms^2*mc2) - 2*mc*ms;
         B = -ms^2*DD - 2*ms*mc
         return A,B
