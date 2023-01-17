@@ -7,6 +7,7 @@ function initial_gen(β;method,x0,Δx_s,M_f,M_s,l)
     dg = (x0,β,t) -> t ≈ 0.0 ? 0.0 : dϕ((x0 - cot(t).^2)./sqrt(4/β * cot.(t))).*chain(x0,β,t)
     dh0 = (x0,β,t) -> t < pi/2 ? dg(x0,β,t) : 0.0
     ft=(c,m,M,j)->(1/j)*trapz(m,vec(c.*exp.(-2*im*M*m/l)))
+    idiffvec = m -> -floor(m/2):1:floor((m-1)/2)
     if method=="finite"
         mgrid=(n,L) -> L*(1:n)/n
         θ=mgrid(M_f,pi)
