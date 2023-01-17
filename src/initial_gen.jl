@@ -15,9 +15,9 @@ function initial_gen(β;method,x0,Δx_s,M_f,M_s,l)
         c0=map(t -> h0(x0,β,t),θ)
         return c0,h,θ
     else
-        mgrid = (n,L) -> L*(0:n-1)/n
+        mgrid = (n,L) -> L*(0:n)/n
         θ=mgrid(M_s,l*pi)
-        N=idiffvec(M_s)
+        N=idiffvec(M_s+1)
         integ=zeros(ComplexF64,length(N))
         for j=1:length(N)
             if N[j]==0
@@ -32,19 +32,19 @@ function initial_gen(β;method,x0,Δx_s,M_f,M_s,l)
         c3=map(t -> dh0(x0-3*Δx_s,β,t),θ)
         c4=map(t -> dh0(x0-4*Δx_s,β,t),θ)
         c5=map(t -> dh0(x0-5*Δx_s,β,t),θ)
-        c0t=zeros(ComplexF64,M_s)
-        c1t=zeros(ComplexF64,M_s)
-        c2t=zeros(ComplexF64,M_s)
-        c3t=zeros(ComplexF64,M_s)
-        c4t=zeros(ComplexF64,M_s)
-        c5t=zeros(ComplexF64,M_s)
+        c0t=zeros(ComplexF64,M_s+1)
+        c1t=zeros(ComplexF64,M_s+1)
+        c2t=zeros(ComplexF64,M_s+1)
+        c3t=zeros(ComplexF64,M_s+1)
+        c4t=zeros(ComplexF64,M_s+1)
+        c5t=zeros(ComplexF64,M_s+1)
         for i=1:length(N)
-            c0t[i]=ft(c0,θ,N[i],θ[end])
-            c1t[i]=ft(c1,θ,N[i],θ[end])
-            c2t[i]=ft(c2,θ,N[i],θ[end])
-            c3t[i]=ft(c3,θ,N[i],θ[end])
-            c4t[i]=ft(c4,θ,N[i],θ[end])
-            c5t[i]=ft(c5,θ,N[i],θ[end])
+            c0t[i]=ft(c0,θ,N[i],l*pi)
+            c1t[i]=ft(c1,θ,N[i],l*pi)
+            c2t[i]=ft(c2,θ,N[i],l*pi)
+            c3t[i]=ft(c3,θ,N[i],l*pi)
+            c4t[i]=ft(c4,θ,N[i],l*pi)
+            c5t[i]=ft(c5,θ,N[i],l*pi)
         end
     end
     if method=="bdf3"
