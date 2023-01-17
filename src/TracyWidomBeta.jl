@@ -8,12 +8,9 @@ using Trapz
 using ApproxFun
 using SpecialFunctions
 
-include("one_step5.jl")
-include("finite_dis.jl")
-include("spectral_dis.jl")
+include("initial_gen.jl")
+include("matrix_gen.jl")
 include("TW.jl")
-include("one_step5_pdf.jl")
-include("𝒟.jl")
 
 export TW
 
