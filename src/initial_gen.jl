@@ -28,6 +28,6 @@ function initial_gen(β;method,x0,Δx_f,Δx_s,M_f,M_s,l)
         c3=map(t -> dh0(x0-3*Δx_s,β,t),θ)|>mfft
         c4=map(t -> dh0(x0-4*Δx_s,β,t),θ)|>mfft
         c5=map(t -> dh0(x0-5*Δx_s,β,t),θ)|>mfft
-        return c0,c1,c2,c3,c4,c5,h,θ
     end
+    return c0,c1,c2,c3,c4,c5,h,θ
 end
