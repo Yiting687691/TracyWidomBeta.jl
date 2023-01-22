@@ -1,4 +1,4 @@
-function TW(β;cheb=10^3,method="finite",interp=true,step="trapz",pdf=false,x0=10.0,xN=-10.0,Δx_f=-0.01,Δx_s=-0.002,M_f=Int(floor(-10/(Δx_f))),M_s=Int(floor(-16/(Δx_s))),l=10)
+function TW(β;cheb=10^3,method="finite",interp=true,step="trapz",pdf=false,x0=13.0,xN=-10.0,Δx_f=-0.01,Δx_s=-0.001,M_f=Int(floor(-10/(Δx_f))),M_s=Int(floor(-8/(Δx_s))),l=10)
     
     # Set up the time domain
     if method=="finite"
@@ -15,10 +15,10 @@ function TW(β;cheb=10^3,method="finite",interp=true,step="trapz",pdf=false,x0=1
     (A,B)=matrix_gen(β;method,M_f,M_s,h,θ,l)
 
     # Step forward in time
-    (TW_cdf,TW_pdf)=step_for(step,A,B,c0,c1,c2,c3,c4,c5)
+    (TW_cdf,TW_pdf)=step_for(method,step,A,B,x0,M_s,xs,xl,c0,c1,c2,c3,c4,c5,l)
 
     # Interpolation
-    (cdf_cheb,pdf_cheb)=Fourier_interp(TW_cdf,TW_pdf)
+    (cdf_cheb,pdf_cheb)=Fourier_interp(xs,cheb,TW_cdf,TW_pdf)
     
     if interp && pdf==false
         return cdf_cheb
