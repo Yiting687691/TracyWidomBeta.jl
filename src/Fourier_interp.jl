@@ -1,4 +1,4 @@
-function Fourier_interp(TW_cdf,TW_pdf)  
+function Fourier_interp(xs,cheb,TW_cdf,TW_pdf)  
     ϕ = x -> (erf.(x) .+ 1.0)/2
     j=PeriodicSegment(xs[end],xs[1])
     S=Laurent(j)
