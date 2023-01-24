@@ -7,6 +7,7 @@ using Distributions
 using Trapz
 using ApproxFun
 using SpecialFunctions
+using FFTW
 
 include("time_gen.jl")
 include("initial_gen.jl")
