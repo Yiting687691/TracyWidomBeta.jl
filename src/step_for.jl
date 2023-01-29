@@ -108,8 +108,7 @@ function step_for(method,step,A,B,x0,M_s,xs,xl,c0,c1,c2,c3,c4,c5,l)
             TW_cdf[i+1]=c0[end]
             TW_pdf[i+1]=c0_pdf[end]
         end
-        z = "To ensure convergence, BDF3 is used instead."
-        println(z)
+        @warn "To ensure convergence, BDF3 is used instead!"
     end
     return TW_cdf,TW_pdf
 end
