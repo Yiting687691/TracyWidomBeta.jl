@@ -8,7 +8,6 @@ using Trapz
 using ApproxFun
 using SpecialFunctions
 using FFTW
-using Logging
 
 include("time_gen.jl")
 include("initial_gen.jl")
