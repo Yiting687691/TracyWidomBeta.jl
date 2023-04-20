@@ -1,6 +1,8 @@
 # TracyWidomBeta
 Compute both the cdf and pdf of the Tracy-Widom distribution for arbitrary β>0.
 
+See (https://arxiv.org/abs/2304.04951)[arxiv.org/abs/2304.04951]
+
 An example usage follows.
 ```
 F_cdf=TW(2)
