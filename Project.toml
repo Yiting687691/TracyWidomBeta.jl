@@ -13,11 +13,13 @@ Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 Trapz = "592b5752-818d-11e9-1e9a-2b8ca4a44cd1"
 SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
 FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
+FastTransforms = "057dd010-8810-581a-b7be-e3fc3b93f78c"
 
 [compat]
 Distributions = "0.25"
 ApproxFun = "0.11.8, 0.12"
 FFTW = "0.3, 1"
+FastTransforms = "0.14"
 SpecialFunctions = "1.0, 2"
 Plots = "1.2"
 Trapz = "2.0.3"
