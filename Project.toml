@@ -18,7 +18,7 @@ FastTransforms = "057dd010-8810-581a-b7be-e3fc3b93f78c"
 [compat]
 Distributions = "0.25"
 ApproxFun = "0.11.8 - 0.13.17"
-FastTransforms = "0.14 - 0.15"
+FastTransforms = "0.5 - 0.13.2"
 FFTW = "0.3, 1"
 SpecialFunctions = "1.0, 2"
 Plots = "1.2"
