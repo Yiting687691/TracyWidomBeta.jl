@@ -42,3 +42,4 @@ T. Trogdon & Y. Zhang (2023), Computing the Tracy-Widom distribution for arbitra
 
 [![CI](https://github.com/Yiting687691/TracyWidomBeta.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/Yiting687691/TracyWidomBeta.jl/actions)
 [![codecov](https://codecov.io/gh/Yiting687691/TracyWidomBeta.jl/branch/main/graph/badge.svg?token=Q9ZOX49RPV)](https://codecov.io/gh/Yiting687691/TracyWidomBeta.jl)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7879558.svg)](https://doi.org/10.5281/zenodo.7879558)
