@@ -1,7 +1,7 @@
 using TracyWidomBeta
 using Test
 
-@testset "TW" begin
+@testset "TracyWidomBeta.jl" begin
     # Test typical inputs
     F_f=TW(2)
     F_s=TW(2;method="spectral",step="bdf5")
