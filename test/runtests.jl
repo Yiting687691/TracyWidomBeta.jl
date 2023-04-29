@@ -1,4 +1,4 @@
-using TracyWidomBeta
+using TracyWidomBeta, RandomMatrices
 using Test
 
 @testset "TracyWidomBeta.jl" begin
