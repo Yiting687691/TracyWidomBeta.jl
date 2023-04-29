@@ -1,8 +1,6 @@
 # TracyWidomBeta
 Compute both the cdf and pdf of the Tracy-Widom distribution for arbitrary β>0.
 
-See [this paper](https://arxiv.org/abs/2304.04951)
-
 ## Example Usage
 ```julia
 F_cdf=TW(2)
@@ -38,7 +36,7 @@ See [Index](https://github.com/Yiting687691/TracyWidomBeta.jl/blob/main/notebook
 
 ## References
 
-T. Trogdon & Y. Zhang (2023), Computing the Tracy-Widom distribution for arbitrary β>0, arXiv:2304.04951
+T. Trogdon & Y. Zhang (2023), Computing the Tracy-Widom distribution for arbitrary β>0, [arXiv:2304.04951](https://arxiv.org/abs/2304.04951)
 
 
 
