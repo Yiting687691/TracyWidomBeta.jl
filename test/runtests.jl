@@ -12,4 +12,6 @@ using Test
     # Test edge cases
     @test F_f(-10) ≈ 0 atol=1e-6
     @test F_s(-10) ≈ 0 atol=1e-11
+    @test F_f(13/sqrt(2)) ≈ 1 atol=1e-6
+    @test F_s(13/sqrt(2)) ≈ 1 atol=1e-11
 end
