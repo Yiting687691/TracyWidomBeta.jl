@@ -1,5 +1,5 @@
 # TracyWidomBeta
-Compute both the cdf and pdf of the Tracy-Widom distribution for arbitrary β>0.
+Compute the cumulative distribution function (CDF) and probability density function (PDF) of the Tracy-Widom distribution for any given β>0.
 
 ## Example Usage
 ```julia
@@ -10,22 +10,22 @@ F_pdf(0.5)
 plot(F_cdf)
 plot(F_pdf)
 ```
-The above code uses the default finite-difference discretization with trapezoidal method. It returns either cdf or pdf, if you set the argument 'pdf' to be true, of the Tracy-Widom distribution function for β=2, and then evaluates the function at x=0.5. Both cdf and pdf can be plotted directly for x between -10 and 13. The pdf can also be obtained by the following way.
+The provided code employs the default finite-difference discretization paired with the trapezoidal method. By setting the 'pdf' argument to true, it can return the PDF of the Tracy-Widom distribution for β=2 and then evaluate the function at x=0.5. Both the CDF and PDF can be seamlessly plotted for x values ranging from -10 to 13/√β. Additionally, the PDF can be acquired using the subsequent approach.
 ```julia
 F_pdf=F_cdf'
 ```
-If higher accuracy is preferred, specify the arguments as the following, where I choose to apply BDF5 on spectral discretization.
+For enhanced accuracy, you can configure the arguments as shown below. Here, I've opted to apply BDF5 to the spectral discretization. 
 ```julia
 F_cdf=TW(2;method="spectral",step="bdf5")
 ```
-Note that for β=4, one needs to account for an extra 2^(1/6) factor when evaluating at the desired value of x. For example, if one wants to compute the cdf of the Tracy-Widom distribution for β=4 at x=-2 using the finite-difference discretization with trapezoidal method, use the following code.
+Please be aware that for β=4, x should be divided by a factor of 2^(1/6), as many published results adhere to a distinct scaling convention. For instance, to calculate the cdf of the Tracy-Widom distribution for β=4 at x=-2 using the old scaling convention, refer to the provided code below.
 ```julia
 F_cdf=TW(4)
 F_cdf(-2/(2^(1/6)))
 ```
-Also note that the default finite-difference discretization only works well for 1⩽β⩽400, and the more accurate spectral discretization works well for 1⩽β⩽10. For larger values of β, one needs to use finer grid and more Chebyshev points (both discretizations use 1000 Chebyshev points by default). For β<1, one needs to enlarge the domain for x.
+Also, be aware that both the default finite-difference discretization and the more precise spectral discretization are effective for 1≤β≤30. For values of β greater than 30, it's necessary to employ a finer grid and increase the value of M. For 0<β<1, it's essential to expand the domain for x.
 
-By default, all of the above examples use Fourier interpolation to generate a continuous function. One can also get only the discrete values before interpolation. For example, the following code shows how to get the discrete values of the cdf using the finite-difference discretization with trapezoidal method and the corresponding values of x.
+By default, all the provided examples utilize Fourier interpolation to produce a continuous function. However, one can also obtain just the discrete values prior to interpolation. For instance, the code below demonstrates how to retrieve discrete values of the cdf using the finite-difference discretization with the trapezoidal method, along with the associated x values.
 ```julia
 F_cdf=TW(2;interp=false)
 x=F[1]
@@ -37,6 +37,8 @@ See [Index](https://github.com/Yiting687691/TracyWidomBeta.jl/blob/main/notebook
 ## References
 
 T. Trogdon & Y. Zhang (2023), Computing the Tracy-Widom distribution for arbitrary β>0, [arXiv:2304.04951](https://arxiv.org/abs/2304.04951)
+
+
 
 
 
