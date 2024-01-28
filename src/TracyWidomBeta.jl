@@ -1,13 +1,6 @@
 module TracyWidomBeta
 
-using LinearAlgebra
-using Statistics
-using SparseArrays
-using Distributions
-using Trapz
-using ApproxFun
-using SpecialFunctions
-using FFTW
+using LinearAlgebra, Statistics, SparseArrays, Distributions, Trapz, ApproxFun, SpecialFunctions, FFTW
 
 include("time_gen.jl")
 include("initial_gen.jl")
