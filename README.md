@@ -2,7 +2,7 @@ Compute the cumulative distribution function (CDF) and probability density funct
 
 This respository contains the code for: https://doi.org/10.3842/SIGMA.2024.005
 
-## Example Usage
+A basic example usage follows.
 ```julia
 F_cdf=TW(2)
 F_cdf(0.5)
