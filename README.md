@@ -20,7 +20,7 @@ s = -2 #point of evaluation
 F(s)
 f(s)
 ```
-For β=4, s should be divided by an extra factor of 2^(1/6), as many published results adhere to a distinct scaling convention. For instance, to calculate the cdf of the Tracy-Widom distribution for β=4 at x=-2 using the old scaling convention, refer to the provided code below.
+For β = 4, s should be divided by an extra factor of 2^(1/6), as many published results adhere to a distinct scaling convention. For instance, to calculate the cdf of the Tracy-Widom distribution for β=4 at x=-2 using the old scaling convention, refer to the provided code below.
 ```julia
 F_cdf=TW(4)
 F_cdf(-2/(2^(1/6)))
