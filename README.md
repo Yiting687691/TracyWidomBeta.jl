@@ -4,12 +4,12 @@ This respository contains the code for: https://doi.org/10.3842/SIGMA.2024.005
 
 A basic example usage follows.
 ```julia
-F_cdf=TW(2)
-F_cdf(0.5)
-F_pdf=TW(2;pdf=true)
-F_pdf(0.5)
-plot(F_cdf)
-plot(F_pdf)
+β = 3 #value of β
+F = TW(β) #CDF
+f = TW(β; pdf = true) #PDF
+s = -2 #evaluation point
+F(s)
+f(s)
 ```
 The provided code employs the default finite-difference discretization paired with the trapezoidal method. By setting the 'pdf' argument to true, it can return the PDF of the Tracy-Widom distribution for β=2 and then evaluate the function at x=0.5. Both the CDF and PDF can be seamlessly plotted for x values ranging from -10 to 13/√β. Additionally, the PDF can be acquired using the subsequent approach.
 ```julia
