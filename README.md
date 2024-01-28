@@ -1,5 +1,6 @@
-# TracyWidomBeta
-Compute the cumulative distribution function (CDF) and probability density function (PDF) of the Tracy-Widom distribution for any given β>0.
+Compute the cumulative distribution function (CDF) and probability density function (PDF) of the Tracy-Widom distribution for arbitrary β>0.
+
+This respository contains the code for: https://doi.org/10.3842/SIGMA.2024.005
 
 ## Example Usage
 ```julia
