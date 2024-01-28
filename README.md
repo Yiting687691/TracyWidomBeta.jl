@@ -20,19 +20,14 @@ s = -2 #point of evaluation
 F(s)
 f(s)
 ```
-For β = 4, s should be divided by an extra factor of 2^(1/6), as many published results adhere to a distinct scaling convention. For instance, to calculate the cdf of the Tracy-Widom distribution for β=4 at x=-2 using the old scaling convention, refer to the provided code below.
+Additionally, discrete values obtained prior to interpolation are accessible. Example usage follows.
 ```julia
-F_cdf=TW(4)
-F_cdf(-2/(2^(1/6)))
+β = 3 #value of β
+F = TW(β; interp = false)
+x = F[1] #set of discrete points
+F_cdf = F[2] #CDF evaluated at these discrete points
 ```
-Also, be aware that both the default finite-difference discretization and the more precise spectral discretization are effective for 1≤β≤30. For values of β greater than 30, it's necessary to employ a finer grid and increase the value of M. For 0<β<1, it's essential to expand the domain for x.
-
-By default, all the provided examples utilize Fourier interpolation to produce a continuous function. However, one can also obtain just the discrete values prior to interpolation. For instance, the code below demonstrates how to retrieve discrete values of the cdf using the finite-difference discretization with the trapezoidal method, along with the associated x values.
-```julia
-F_cdf=TW(2;interp=false)
-x=F[1]
-F_cdf=F[2]
-```
+For β = 4, s should be divided by an extra factor of 2^(1/6), as many published results adhere to a distinct scaling convention.
 
 See [Index](https://github.com/Yiting687691/TracyWidomBeta.jl/blob/main/notebook/Index.ipynb) for a brief summary of how this algorithm is created and related plots.
 
