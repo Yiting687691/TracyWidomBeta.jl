@@ -7,19 +7,20 @@ A basic example usage follows.
 β = 3 #value of β
 F = TW(β) #CDF
 f = TW(β; pdf = true) #PDF
-s = -2 #evaluation point
+s = -2 #point of evaluation
 F(s)
 f(s)
 ```
-The provided code employs the default finite-difference discretization paired with the trapezoidal method. By setting the 'pdf' argument to true, it can return the PDF of the Tracy-Widom distribution for β=2 and then evaluate the function at x=0.5. Both the CDF and PDF can be seamlessly plotted for x values ranging from -10 to 13/√β. Additionally, the PDF can be acquired using the subsequent approach.
+Optional arguments include the method of discretization and the method of time integration. Example usage of these optional arguments follows.
 ```julia
-F_pdf=F_cdf'
+β = 3 #value of β
+F = TW(β; method = "spectral", step = "bdf5") #CDF
+f = TW(β; method = "spectral", step = "bdf5", pdf = true) #PDF
+s = -2 #point of evaluation
+F(s)
+f(s)
 ```
-For enhanced accuracy, you can configure the arguments as shown below. Here, I've opted to apply BDF5 to the spectral discretization. 
-```julia
-F_cdf=TW(2;method="spectral",step="bdf5")
-```
-Please be aware that for β=4, x should be divided by a factor of 2^(1/6), as many published results adhere to a distinct scaling convention. For instance, to calculate the cdf of the Tracy-Widom distribution for β=4 at x=-2 using the old scaling convention, refer to the provided code below.
+For β=4, s should be divided by an extra factor of 2^(1/6), as many published results adhere to a distinct scaling convention. For instance, to calculate the cdf of the Tracy-Widom distribution for β=4 at x=-2 using the old scaling convention, refer to the provided code below.
 ```julia
 F_cdf=TW(4)
 F_cdf(-2/(2^(1/6)))
@@ -34,13 +35,6 @@ F_cdf=F[2]
 ```
 
 See [Index](https://github.com/Yiting687691/TracyWidomBeta.jl/blob/main/notebook/Index.ipynb) for a brief summary of how this algorithm is created and related plots.
-
-## References
-
-T. Trogdon & Y. Zhang (2023), Computing the Tracy-Widom distribution for arbitrary β>0, [arXiv:2304.04951](https://arxiv.org/abs/2304.04951)
-
-
-
 
 
 [![CI](https://github.com/Yiting687691/TracyWidomBeta.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/Yiting687691/TracyWidomBeta.jl/actions)
