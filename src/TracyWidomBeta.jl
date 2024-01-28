@@ -2,20 +2,9 @@ module TracyWidomBeta
 
 using LinearAlgebra, Statistics, SparseArrays, Distributions, Trapz, ApproxFun, SpecialFunctions, FFTW
 
-include("initial_gen.jl")
-include("matrix_gen.jl")
-include("step_for.jl")
-include("Fourier_interp.jl")
+include("AuxiliaryFunctions.jl")
 
 export TW
-
-function time_gen(x1,x2,Δx)
-    xs=x1:Δx:x2 |> Array
-    if abs(xs[end])<abs(x2)
-        xs=x1:Δx:(x2+Δx) |> Array
-    end
-    return xs
-end
 
 function TW(β;cheb=10^3,method="finite",interp=true,step="trapz",pdf=false,x0=13.0/(sqrt(β)),xN=-10.0,Δx_f=-0.001,Δx_s=-0.001,M_f=Int(floor(-1/(Δx_f))),M_s=8000,l=10)
     
