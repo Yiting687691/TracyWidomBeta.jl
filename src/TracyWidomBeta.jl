@@ -6,7 +6,7 @@ include("AuxiliaryFunctions.jl")
 
 export TW
 
-function TW(β;cheb=10^3,method="finite",interp=true,step="trapz",pdf=false,x0=13.0/(sqrt(β)),xN=-10.0,Δx_f=-0.001,Δx_s=-0.001,M_f=Int(floor(-1/(Δx_f))),M_s=8000,l=10)
+function TW(β;cheb=10^3,method="finite",interp=true,step="trapz",pdf=false,x0=floor(13.0/(sqrt(β))),xN=-10.0,Δx_f=-0.001,Δx_s=-0.001,M_f=Int(floor(-1/(Δx_f))),M_s=8000,l=10)
     
     # Set up the time domain
     if method=="finite"
