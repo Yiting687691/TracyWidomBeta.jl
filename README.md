@@ -29,6 +29,8 @@ F_cdf = F[2] #CDF evaluated at these discrete points
 ```
 For β = 4, s should be divided by an extra factor of 2^(1/6), as many published results adhere to a distinct scaling convention.
 
+Figures in the paper can be found [here](https://github.com/Yiting687691/TracyWidomBeta.jl/blob/main/Notebooks/PaperFigures.ipynb).
+
 
 [![CI](https://github.com/Yiting687691/TracyWidomBeta.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/Yiting687691/TracyWidomBeta.jl/actions)
 [![codecov](https://codecov.io/gh/Yiting687691/TracyWidomBeta.jl/branch/main/graph/badge.svg?token=Q9ZOX49RPV)](https://codecov.io/gh/Yiting687691/TracyWidomBeta.jl)
